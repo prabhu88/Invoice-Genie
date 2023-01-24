@@ -39,7 +39,7 @@ const developmentConfig = merge([
     {
         output: {
             publicPath: 'http://localhost:3000/',
-            filename: './app/index.js',
+            filename: '[name].dev.js',
         },
         plugins: [
             // prints more readable module names in the browser console on HMR updates
