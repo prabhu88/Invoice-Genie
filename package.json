@@ -1,0 +1,36 @@
+{
+  "name": "invoice-genie",
+  "version": "1.0.0",
+  "description": "Invoice Genie -Invoice Generator is designed to simplify and streamline the process of creating and managing invoices",
+  "main": "app.js",
+  "repository": "https://github.com/prabhu88/Invoice-Genie.git",
+  "author": "prabhu88 <s.prabhu.mtech88@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "electron .",
+    "dev": "webpack-dev-server --mode development",
+    "dist:win": "electron-builder --win"
+  },
+  "dependencies": {
+    "electron": "^22.0.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-settings": "^4.0.2",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "redux": "^4.2.0",
+<<<<<<< HEAD
+    "styled-components": "^5.3.6",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "4.0.0"
+=======
+    "webpack-dev-server": "^4.11.1"
+>>>>>>> parent of 9d6f35d (commit)
+  }
+}
