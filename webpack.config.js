@@ -4,8 +4,8 @@ const merge = require('webpack-merge')
 const parts = require('./webpack.parts')
 const nodeExternals = require('webpack-node-externals')
 const PATHS = {
-    prod: path.resolve(__dirname, 'prod'),
-};
+    prod: path.resolve(__dirname, 'app'),
+}
 const productionConfig = merge([
     parts.clean(PATHS.prod),
     parts.minifyJavaScript(),
@@ -70,8 +70,7 @@ const commonConfig = merge([
             maxEntrypointSize: 100000, // in bytes
             maxAssetSize: 450000, // in bytes
         },
-        entry : {
-            tour : [],
+        entry : {            
             main : ['./app/index.jsx',]
         },
         context: path.resolve(__dirname),
