@@ -1,0 +1,30 @@
+appId: com.prabhu.invoicegenie
+extends: null
+copyright: S. Prabhu
+productName: Invoice Genie
+publish:
+  - provider: github
+    owner: prabhu88
+    repo: Invoice-Genie
+directories:
+  output: dist/
+mac:
+  category: public.app-category.business
+  target:
+    - zip
+    - dmg
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+    - target: portable
+      arch:
+        - x64
+        - ia32
+linux:
+  category: Office
+  target:
+    - deb
+    - AppImage
