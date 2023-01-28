@@ -1,15 +1,35 @@
 {
   "name": "invoice-genie",
   "version": "1.0.0",
-  "description": "Invoice Genie -Invoice Generator is designed to simplify and streamline the process of creating and managing invoices",  
+  "description": "Invoice Genie -Invoice Generator is designed to simplify and streamline the process of creating and managing invoices",
   "repository": "https://github.com/prabhu88/Invoice-Genie.git",
   "author": "S. Prabhu <s.prabhu.mtech88@gmail.com>",
   "license": "MIT",
-  "private": false,  
-  "dependencies": {
-    
+  "private": false,
+  "scripts": {
+    "start": "react-scripts start"
   },
-  "devDependencies": {
-    
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "5.3.4",
+    "react-scripts": "3.0.0",
+    "redux": "^4.2.0"
+  },
+  "devDependencies": {},
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
