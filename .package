@@ -6,7 +6,7 @@
   "repository": "https://github.com/prabhu88/Invoice-Genie.git",
   "author": "S. Prabhu <s.prabhu.mtech88@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "start": "electron .",
     "dev": "webpack-dev-server --mode development",
