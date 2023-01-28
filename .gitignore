@@ -6,3 +6,4 @@
 /monitor
 /static
 *.log
+.babelrc
