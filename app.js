@@ -7,7 +7,7 @@ const isDev = require('electron-is-dev')
 const omit = require('lodash').omit
 
 const {app,BrowserWindow,ipcMain} = require('electron')
-const appConfig = require('electron-settings')
+//const appConfig = require('electron-settings')
 
 const centerDisplay = require('./helpers/center-display')
 
@@ -29,14 +29,17 @@ function createMainWindow(){
         y: winPOS.y,
         width,
         height,
-        minWidth: 600,
-        minHeight: 400,
-        backgroundColor: '#2e2c29',
-        title: 'Main Window',
+        minWidth: 700,
+        minHeight: 500,
+        backgroundColor: '#2e2c29',        
+        webPreferences: {            
+            webSecurity: false
+        }
     })
+    //mainWindow.loadFile('./build/index.html')
     mainWindow.loadURL(
         url.format({
-          pathname: path.join(__dirname, './app/index.html'),
+          pathname: path.join(__dirname, './build/index.html'),
           protocol: 'file:',
           slashes: true,
         })
