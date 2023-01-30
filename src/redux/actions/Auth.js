@@ -1,5 +1,7 @@
 import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT,SET_MESSAGE} from './AuthActionType'
+import {setMsg,clearMsg} from './Msg'
 //const baseURL = process.env.REACT_APP_PRODUCTION_AUTH_URL ?? process.env.REACT_APP_DEVELOPEMENT_AUTH_URL;
+
 export const login = (username, password) => (dispatch) => {
     //return AuthService.login(username, password).then()
     // axios.post(baseURL + "signin", {username,password,})
@@ -22,16 +24,17 @@ export const login = (username, password) => (dispatch) => {
                 }
             }
         })
+        dispatch(clearMsg())
     }
     else{
         dispatch({
             type: LOGOUT,
         })
+        dispatch(setMsg('username or password incorrect'))
     }
 }
 
-export const logout = () => (dispatch) =>{
-    console.log('called')
+export const logout = () => (dispatch) =>{    
     dispatch({
         type: LOGOUT,
     })

@@ -26,7 +26,7 @@ function Header() {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "";
   };
   return (
     <Navbar bg="light" expand="lg">
@@ -43,9 +43,8 @@ function Header() {
             href="#home"
             onClick={(e) => e.preventDefault()}
             className="mr-2"
-          >
-            Invoice-Genie
-            {/* {getBrandText()} */}
+          >            
+            {getBrandText()}
           </Navbar.Brand>
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
@@ -122,7 +121,7 @@ function Header() {
               </Nav.Link>
             </Nav.Item>
           </Nav> */}
-          <Nav className="ml-auto" navbar>
+          <Nav className="ml-auto pull-right" navbar>
             <Nav.Item>
               <Nav.Link
                 className="m-0"

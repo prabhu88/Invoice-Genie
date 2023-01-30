@@ -7,6 +7,7 @@ const Login = () => {
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')    
     const {isLoggedIn} = useSelector(state => state.auth)
+    const {message} = useSelector(state => state.msg)
     const navigate = useHistory()
     useEffect(()=>{
         if(isLoggedIn){
@@ -17,8 +18,7 @@ const Login = () => {
     
     const dispatch = useDispatch()    
     const formSubmit = (e) => {
-        e.preventDefault();        
-        console.log(e)
+        e.preventDefault();
         dispatch(login(username, password))        
     }
     return(
@@ -50,6 +50,9 @@ const Login = () => {
                                             <div className="d-grid">
                                                 <Button variant="primary" type="submit">Login</Button>
                                             </div>
+                                            {
+                                                message
+                                            }
                                         </Form>
                                     </div>
                                 </div>

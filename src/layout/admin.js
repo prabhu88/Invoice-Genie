@@ -4,6 +4,7 @@ import Header_Nav from '../components/navbar/Header_Nav'
 import Sidebar_plugins from '../components/plugins/sidebar_plugins'
 import { useDispatch, useSelector } from "react-redux"
 import Sidebar from '../components/Sidebar/Sidebar'
+import Sidebars from "../components/Sidebar/SideBar1"
 import routes from '../routes'
 //import routes from "routes.js"
 const Admin = () =>{    
@@ -50,9 +51,11 @@ const Admin = () =>{
       }, [location])
     return(
         <>
-            <div className="wrapper">                
+            <div className="wrapper">                              
+                <Sidebar routes={routes} />
                 <div className="main-panel" ref={mainPanel}>
                     <Header_Nav/>
+                    
                     <div className="content">
                         <Switch>
                             {getRoutes(routes)}

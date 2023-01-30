@@ -9,6 +9,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/animate.min.css'
 import './assets/css/demo.css'
+import './assets/css/light-bootstrap-dashboard-react.css'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
