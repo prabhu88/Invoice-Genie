@@ -1,11 +1,20 @@
 import React, { Component,useState,useEffect, useRef } from "react"
-import { useLocation, Route, Switch } from "react-router-dom"
+import { useLocation, Route, Switch,useHistory } from "react-router-dom"
 import Header_Nav from '../components/navbar/Header_Nav'
 import Sidebar_plugins from '../components/plugins/sidebar_plugins'
+import { useDispatch, useSelector } from "react-redux"
 import Sidebar from '../components/Sidebar/Sidebar'
 import routes from '../routes'
 //import routes from "routes.js"
 const Admin = () =>{    
+    const {isLoggedIn} = useSelector(state => state.auth)
+    const navigate = useHistory()
+    const dispatch = useDispatch()
+    useEffect(()=>{
+      if(!isLoggedIn){
+          navigate.push('login')
+      }      
+  },[isLoggedIn])
     const [image,setImage] = useState('')
     const [color,setColor] = useState('')
     const [hasImage, setHasImage] = useState(true)

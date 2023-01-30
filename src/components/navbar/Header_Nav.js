@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
-import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import {logout} from '../../redux/actions/Auth'
 import routes from '../../routes'
-//import routes from "routes.js";
 
 function Header() {  
   const location = useLocation();
+  const dispatch = useDispatch()
   const mobileSidebarToggle = (e) => {
     e.preventDefault();
     document.documentElement.classList.toggle("nav-open");
@@ -42,6 +44,7 @@ function Header() {
             onClick={(e) => e.preventDefault()}
             className="mr-2"
           >
+            Invoice-Genie
             {/* {getBrandText()} */}
           </Navbar.Brand>
         </div>
@@ -51,7 +54,7 @@ function Header() {
           <span className="navbar-toggler-bar burger-lines"></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav mr-auto" navbar>
+          {/* <Nav className="nav mr-auto" navbar>
             <Nav.Item>
               <Nav.Link
                 data-toggle="dropdown"
@@ -118,7 +121,7 @@ function Header() {
                 <span className="d-lg-block"> Search</span>
               </Nav.Link>
             </Nav.Item>
-          </Nav>
+          </Nav> */}
           <Nav className="ml-auto" navbar>
             <Nav.Item>
               <Nav.Link
@@ -129,7 +132,7 @@ function Header() {
                 <span className="no-icon">Account</span>
               </Nav.Link>
             </Nav.Item>
-            <Dropdown as={Nav.Item}>
+            {/* <Dropdown as={Nav.Item}>
               <Dropdown.Toggle
                 aria-expanded={false}
                 aria-haspopup={true}
@@ -174,12 +177,12 @@ function Header() {
                   Separated link
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
             <Nav.Item>
               <Nav.Link
                 className="m-0"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => dispatch(logout())}
               >
                 <span className="no-icon">Log out</span>
               </Nav.Link>

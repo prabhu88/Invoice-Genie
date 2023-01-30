@@ -15,7 +15,8 @@
     "dist:win": "electron-builder --win"
   },
   "dependencies": {
-    "bootstrap": "^5.2.3",    
+    "axios": "^1.2.6",
+    "bootstrap": "^5.2.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -25,13 +26,15 @@
     "react-router-dom": "5.3.4",
     "react-scripts": "3.0.0",
     "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "electron": "^22.1.0",
     "electron-builder": "22.3.0",
     "electron-is-dev": "^2.0.0",
-    "electron-settings": "3.2.0"
+    "electron-settings": "3.2.0",
+    "redux-devtools-extension": "^2.13.9"
   },
   "browserslist": {
     "production": [
@@ -44,5 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }  
+  }
 }
