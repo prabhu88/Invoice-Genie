@@ -1,10 +1,11 @@
 import Dashboard from '../views/Dashboard'
+import UserSettings from '../views/UserSettings'
 const AdminRoutes = [
     // {
     //     upgrade: true,
     //     path: "/upgrade",
     //     name: "Upgrade to PRO",
-    //     icon: "nc-icon nc-alien-33",
+    //     icon: "fa-solid fa-house",
     //     component: Upgrade,
     //     layout: "/admin"
     //   },
@@ -15,13 +16,13 @@ const AdminRoutes = [
         component: Dashboard,
         layout: "/admin"
       },
-      // {
-      //   path: "/user",
-      //   name: "User Profile",
-      //   icon: "nc-icon nc-circle-09",
-      //   component: UserProfile,
-      //   layout: "/admin"
-      // },
+      {
+        path: "/user",
+        name: "Profile",
+        icon: "nc-icon nc-circle-09",
+        component: UserSettings,
+        layout: "/admin"
+      },
       // {
       //   path: "/table",
       //   name: "Table List",

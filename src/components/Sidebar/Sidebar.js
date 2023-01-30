@@ -2,6 +2,7 @@
 import React, { Component } from "react"
 import { useLocation, NavLink } from "react-router-dom"
 import { Nav } from "react-bootstrap"
+import FontAwesomeIcon from '@fortawesome/fontawesome-free'
 import logImg from '../../assets/img/inv-genie.png'
 function Sidebar({ color, image, routes }) {
   const location = useLocation();

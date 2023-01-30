@@ -31,8 +31,8 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Number</p>
-                      <Card.Title as="h4">150GB</Card.Title>
+                      <p className="card-category">Pending Invoice</p>
+                      <Card.Title as="h4">150</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -40,6 +40,7 @@ function Dashboard() {
               <Card.Footer>
                 <hr></hr>
                 <div className="stats">
+                  <i className="fas fa-redo mr-1"></i>
                   <i className="fas fa-redo mr-1"></i>
                   Update Now
                 </div>
@@ -57,7 +58,7 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Revenue</p>
+                      <p className="card-category">Invoice Generated</p>
                       <Card.Title as="h4">$ 1,345</Card.Title>
                     </div>
                   </Col>
@@ -67,7 +68,7 @@ function Dashboard() {
                 <hr></hr>
                 <div className="stats">
                   <i className="far fa-calendar-alt mr-1"></i>
-                  Last day
+                  current month
                 </div>
               </Card.Footer>
             </Card>
@@ -83,7 +84,7 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Errors</p>
+                      <p className="card-category">Cancelled Invoices</p>
                       <Card.Title as="h4">23</Card.Title>
                     </div>
                   </Col>
@@ -93,7 +94,7 @@ function Dashboard() {
                 <hr></hr>
                 <div className="stats">
                   <i className="far fa-clock-o mr-1"></i>
-                  In the last hour
+                  current month
                 </div>
               </Card.Footer>
             </Card>
@@ -109,7 +110,7 @@ function Dashboard() {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
-                      <p className="card-category">Followers</p>
+                      <p className="card-category">Paid Invoice</p>
                       <Card.Title as="h4">+45K</Card.Title>
                     </div>
                   </Col>
@@ -125,7 +126,7 @@ function Dashboard() {
             </Card>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col md="8">
             <Card>
               <Card.Header>
@@ -509,7 +510,7 @@ function Dashboard() {
               </Card.Footer>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );
