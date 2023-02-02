@@ -34,40 +34,47 @@ yarn
 
 ### Usage
 
-#### Run the app
+#### Run the app on web
 
 ```
-npm run start
+npm run start  
 ```
 or
 ```
 yarn start
 ```
 
-#### Build the app (automatic)
-
-```
-npm run package
-```
-or
-```
-yarn package
-```
-
-#### Build the app (manual)
+#### Run the app Electron (Desktop) 
 
 ```
 npm run build
+
+npm run start  
 ```
 or
 ```
 yarn build
+
+yarn start
 ```
 
-#### Test the app (after `npm run build` || `yarn run build`)
+#### Build the app 
+
 ```
-npm run prod
+npm run dist
 ```
+or
 ```
-yarn prod
+yarn dist
 ```
+
+#### Build the app (windows)
+
+```
+npm run dist:win
+```
+or
+```
+yarn dist:win
+```
+
