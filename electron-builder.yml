@@ -1,6 +1,6 @@
 appId: com.prabhu.invoicegenie
 extends: null
-copyright: S. Prabhu
+copyright: Copyright © 2023 (S. Prabhu)
 productName: Invoice Genie
 publish:
   - provider: github

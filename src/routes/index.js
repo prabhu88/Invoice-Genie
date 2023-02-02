@@ -17,7 +17,7 @@ const AdminRoutes = [
         layout: "/admin"
       },
       {
-        path: "/user",
+        path: "/profile",
         name: "Profile",
         icon: "nc-icon nc-circle-09",
         component: UserSettings,

@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Common = () => {
+const CommonSettings = () => {
     return(
         <div>
             Common Content
         </div>
     )
 }
-export default Common;
+export default CommonSettings

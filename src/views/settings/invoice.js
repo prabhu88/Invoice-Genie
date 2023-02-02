@@ -7,4 +7,4 @@ const Invoice = () => {
         </div>
     )
 }
-export default Invoice;
+export default Invoice
