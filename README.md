@@ -9,9 +9,6 @@ Invoice-Genie is a powerful and versatile multi-platform application developed u
 
 * [Install](#install)
 * [Usage](#usage)
-* [Add Sass](#add-sass)
-* [Add TailwindcSS](#add-tailwindcss)
-* [Change app title](#change-app-title)
 * [Contact and Support](#contact-and-support)
 * [Code of Conduct](#code-of-conduct)
 * [License](#license)
