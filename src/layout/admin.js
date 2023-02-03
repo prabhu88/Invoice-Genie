@@ -15,9 +15,9 @@ const Admin = (props) =>{
           navigate.push('login')
       }      
   },[isLoggedIn])
-    const [image,setImage] = useState('')
-    const [color,setColor] = useState('blue')
-    const [hasImage, setHasImage] = useState(side_bak)
+    const [image,setImage] = useState(side_bak)
+    const [color,setColor] = useState('purple')
+    const [hasImage, setHasImage] = useState(true)
     const location = useLocation()
     const mainPanel = useRef(null)
     const getRoutes = (routes) => {
@@ -51,7 +51,7 @@ const Admin = (props) =>{
     return(
         <>
             <div className="wrapper">                              
-                <Sidebar routes={routes} image={hasImage} color={color}/>
+                <Sidebar routes={routes} image={image} color={color}/>
                 <div className="main-panel" ref={mainPanel}>
                     <Header_Nav/>                    
                     <div className="content">

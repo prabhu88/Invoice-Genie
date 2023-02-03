@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import store from './redux/store'
 import App from "./app.js";
 import '@fortawesome/fontawesome-free'
+import "@fortawesome/fontawesome-free/css/all.min.css"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/animate.min.css'

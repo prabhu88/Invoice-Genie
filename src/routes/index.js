@@ -1,5 +1,6 @@
 import Dashboard from '../views/Dashboard'
 import UserSettings from '../views/UserSettings'
+import AllInvoices from '../views/AllInvoices'
 const AdminRoutes = [
     // {
     //     upgrade: true,
@@ -37,13 +38,13 @@ const AdminRoutes = [
       //   component: Typography,
       //   layout: "/admin"
       // },
-      // {
-      //   path: "/icons",
-      //   name: "Icons",
-      //   icon: "nc-icon nc-atom",
-      //   component: Icons,
-      //   layout: "/admin"
-      // },
+      {
+        path: "/invoice",
+        name: "All Invoices",
+        icon: "nc-icon nc-atom",
+        component: AllInvoices,
+        layout: "/admin"
+      },
       // {
       //   path: "/maps",
       //   name: "Maps",

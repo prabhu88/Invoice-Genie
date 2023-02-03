@@ -1,20 +1,52 @@
 
-import React,{useState,useRef} from "react";
+import React,{useState,useEffect} from "react";
 import {useDispatch,useSelector} from 'react-redux'
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap'
-import { from } from "mute-stream";
-const UserSettings = (props) =>{        
-    const [visibleTab,setVisibleTab] = useState(0)
-    const [key, setKey] = useState('home');
+//import {setProfile} from '../redux/actions/Profile'
+import Swal from 'sweetalert2'
+import CmpnyLogo from '../assets/img/faces/face-1.jpg'
+const UserSettings = (props) => {            
+    const _default = useSelector(state => state.profile)    
+    const [logofile, setLogofile] = useState(CmpnyLogo);
+    const dispatch = useDispatch()
     const [formData,setFormData] = useState({
         company_name : '',        address_line1 : '',        address_line2 : '',
         city : '',        state : '',        country : '',        zipcode : '',
         mobile : '',        email : '',        gstin : '',        pan : '',
-        terms : ''
+        terms : '', image : "../assets/img/faces/face-1.jpg"
     })
+    useEffect(()=>{        
+        if(_default){
+            setFormData(_default)
+        }
+    },[_default])
+    
     const formSumit = (e) => {
         e.preventDefault();
+        //dispatch(setProfile(formData))      
+        Swal.fire({
+            title: 'Do you want to save the changes?',            
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            denyButtonText: `Don't save`,
+          }).then((result) => {            
+            if (result.isConfirmed) {
+                dispatch({
+                    type : 'SET_PROFILE',
+                    payload : formData
+                })
+                Swal.fire('Details Updated Successfully','','success')
+
+            } else if (result.isDenied) {
+              Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
         
+         
+    }
+    const imgChange = (e) => {
+        e.preventDefault()
+        setLogofile(URL.createObjectURL(e.target.files[0]));
     }
     return(
         <div>            
@@ -32,7 +64,7 @@ const UserSettings = (props) =>{
                                             <Form.Group>
                                                 <label>Company Name</label>
                                                 <Form.Control
-                                                defaultValue=""                                                
+                                                value = {formData.company_name}                                                
                                                 placeholder="Company"
                                                 type="text"
                                                 onChange={(e)=>{
@@ -49,7 +81,7 @@ const UserSettings = (props) =>{
                                             <Form.Group>
                                                 <label>Address</label>
                                                 <Form.Control
-                                                    defaultValue={formData.address_line1}
+                                                    value={formData.address_line1}
                                                     placeholder="Address Line 1"
                                                     type="text"
                                                     onChange={(e)=>{
@@ -59,7 +91,7 @@ const UserSettings = (props) =>{
                                                     }}
                                                 ></Form.Control>
                                                 <Form.Control
-                                                    defaultValue={formData.address_line2}
+                                                    value={formData.address_line2}
                                                     placeholder="Address Line 2"
                                                     className="mt-2"
                                                     type="text"
@@ -89,7 +121,7 @@ const UserSettings = (props) =>{
                                         <Col className="pr-1" md="3">
                                             <label>State</label>
                                             <Form.Control
-                                                defaultValue={formData.state}                                                
+                                                value={formData.state}                                                
                                                 placeholder="State address"
                                                 type="text"
                                                 onChange={(e)=>{
@@ -102,7 +134,7 @@ const UserSettings = (props) =>{
                                         <Col className="pr-1" md="3">
                                             <label>Country</label>
                                             <Form.Control
-                                                defaultValue={formData.country}                                                
+                                                value={formData.country}                                                
                                                 placeholder="Country"
                                                 type="text"
                                                 onChange={(e)=>{
@@ -115,7 +147,7 @@ const UserSettings = (props) =>{
                                         <Col className="pr-1" md="3">
                                             <label>Postal Code</label>
                                             <Form.Control
-                                                defaultValue={formData.zipcode}                                                
+                                                value={formData.zipcode}                                                
                                                 placeholder="Postal Code"
                                                 type="text"
                                                 onChange={(e)=>{
@@ -131,7 +163,7 @@ const UserSettings = (props) =>{
                                             <Form.Group>
                                                 <label>Mobile number</label>
                                                 <Form.Control
-                                                    defaultValue={formData.mobile}
+                                                    value={formData.mobile}
                                                     placeholder="Mobile Number"
                                                     type="number"
                                                     onChange={(e)=>{
@@ -146,7 +178,7 @@ const UserSettings = (props) =>{
                                             <Form.Group>
                                                 <label>Email Address</label>
                                                 <Form.Control
-                                                    defaultValue={formData.email}
+                                                    value={formData.email}
                                                     placeholder="Email Address"
                                                     type="text"
                                                     onChange={(e)=>{
@@ -162,8 +194,7 @@ const UserSettings = (props) =>{
                                         <Col className="pr-1" md="6">
                                             <Form.Group>
                                                 <label>GSTIN</label>
-                                                <Form.Control
-                                                    defaultValue={formData.gstin}
+                                                <Form.Control                                                    
                                                     value = {formData.gstin}
                                                     placeholder="GSTIN Number"
                                                     type="text"
@@ -180,7 +211,7 @@ const UserSettings = (props) =>{
                                             <Form.Group>
                                                 <label>PAN</label>
                                                 <Form.Control
-                                                    defaultValue={formData.pan}
+                                                    value={formData.pan}
                                                     placeholder="PAN"
                                                     type="text"
                                                     disabled                                                    
@@ -194,7 +225,7 @@ const UserSettings = (props) =>{
                                                 <label>Terms & conditions</label>
                                                 <Form.Control
                                                     cols="80"
-                                                    defaultValue=""
+                                                    value={formData.terms}
                                                     placeholder="Here can be your description"
                                                     rows="4"
                                                     as="textarea"
@@ -221,7 +252,36 @@ const UserSettings = (props) =>{
                         </Card>
                     </Col>
                     <Col md="4">
-
+                        <Card className="card-user">
+                            <div className="card-image">
+                                <img
+                                alt="..."
+                                src={require("../assets/img/photo-1431578500526-4d9613015464.jpeg")}
+                                ></img>
+                            </div>
+                            <Card.Body>
+                                <div>
+                                    
+                                </div>
+                                <div className="author">                                    
+                                    <input type="file" hidden id='selectImage' accept="image/*"  onChange={imgChange} />
+                                    <a href="#pablo" onClick={(e) => {
+                                            e.preventDefault();
+                                            document.getElementById("selectImage").click()
+                                        }}>
+                                        <img
+                                        alt="..."
+                                        className="avatar border-gray"
+                                        src={logofile}
+                                        >                                            
+                                        </img>
+                                        <h5 className="title">Company Logo</h5>
+                                    </a>
+                                    <p className="description"></p>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                        
                     </Col>
                 </Row>
                 <h1>{formData.pan}</h1> 
