@@ -44,13 +44,14 @@ function createMainWindow(){
     // .then(()=>{
     //     mainWindow.show()
     // })
-    mainWindow.loadURL(
-        url.format({
-          pathname: path.join(__dirname, './build/index.html'),
-          protocol: 'file:',
-          slashes: true,
-        })
-    );
+    mainWindow.loadFile('build/index.html')
+    // mainWindow.loadURL(
+    //     url.format({
+    //       pathname: path.join(__dirname, 'build/index.html'),
+    //       protocol: 'file:',
+    //       slashes: true,
+    //     })
+    // );
     // mainWindow.loadURL('http://192.168.1.120:94/suri-test/')
     mainWindow.on('show', event => {
         if (isDev || forceDevtools) mainWindow.webContents.openDevTools({ mode: 'detach' });

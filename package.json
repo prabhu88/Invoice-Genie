@@ -6,15 +6,15 @@
   "author": "S. Prabhu <s.prabhu.mtech88@gmail.com>",
   "license": "MIT",
   "private": false,
-  "main": "app.js",
-  "homepage": "./",
+  "main": "main.js", 
+  "homepage": "./", 
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "elec": "electron .",
     "dist": "build",
     "dist:win": "electron-builder --win"
-  },
+  },  
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "axios": "^1.2.6",

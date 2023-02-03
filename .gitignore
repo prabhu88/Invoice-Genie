@@ -7,5 +7,6 @@
 /prod
 /monitor
 /static
+/build_old
 *.log
 .babelrc
