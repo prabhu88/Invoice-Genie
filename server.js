@@ -1,6 +1,6 @@
 'use strict';
 var express = require('express')
-//var path = require('path')
+var path = require('path')
 var http = require('http')
 var cookieParser = require('cookie-parser')
 var morgan = require('morgan')
@@ -16,12 +16,15 @@ var constants = require('./server/utility/constants')
 var errorConstant = require('./server/utility/errorconstants')
 const winston_logger = require('./server/utility/logger')
 
+var userAuthRouter = require('./server/routes/userAuthRouter')
+
 async.waterfall([
     (callback) => {
         server.use(bodyParser.json({ limit: '50mb' }));
         server.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
         server.use(cookieParser());
         server.use(morgan('combined', { stream: winston_logger.stream }));
+        server.use('/auth',userAuthRouter);
         server.use('*', function (req, res) {
             res.status(404).send(
                 errorConstant.BAD_URL);
@@ -34,14 +37,15 @@ async.waterfall([
     if (error) {
         logger.log("error", "Error while starting server. Please check error log %s", error.message)
     } else {
+        const port = 3012
         process.on('uncaughtException', function (e) {
             logger.log("error", "UnCaught Exception :: ", e);
         }
         )
         http.createServer(server).listen(
-            server.get('port'),
+            port,
             function () {
-                logger.log("info", "Started NodeJS server For GSTR2B Offline Utility , listening on port :: "+server.get('port')+" , :: %s", server.get('port'), new Date().getTime(), new Date().toString());
+                logger.log("info", "Started NodeJS server For GSTR2B Offline Utility , listening on port :: "+port+" , :: %s , %s", server.get('port'), new Date().getTime(), new Date().toString());
                 logger.level = constants.LOG_LEVEL;
             });
     }

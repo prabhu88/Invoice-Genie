@@ -6,12 +6,12 @@ const { OFFLINE_TOOL_DB, STATUS_CD_ZERO, STATUS_CD_ONE, DB_PATH, DB_EXT } = requ
 const {fetchAll}  = require('../db/common/dbUtil')
 
 const userLoginTable = `CREATE TABLE user_login (
-    user_id INTEGER PRIMARY KEY,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
-    email TEXT NOT NULL
-  );
-  insert into user_login values (1,'admin','admin@123','s.prabhu.mtech88@gmail.com');
+        user_id INTEGER PRIMARY KEY,
+        username TEXT NOT NULL,
+        password TEXT NOT NULL,
+        email TEXT NOT NULL
+    );
+    insert into user_login values (1,'admin','admin@123','s.prabhu.mtech88@gmail.com');
 `
 console.log(DB_PATH + OFFLINE_TOOL_DB + DB_EXT)
 fetchAll('SELECT * FROM user_login ',OFFLINE_TOOL_DB).then((res,err)=>{
