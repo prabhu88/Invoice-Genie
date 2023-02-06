@@ -179,10 +179,7 @@ const Inv_details = (props) => {
                             <p>
                             {props.props.invoice_id
                                 ? props.props.invoice_id
-                                : truncate(props.props._id, {
-                                    length: 8,
-                                    omission: '',
-                                })}
+                                : ''}
                             </p>
                         </Field>
                         <Field>
