@@ -162,6 +162,44 @@ async function executeGstr2bTables(gstin) {
 
 }
 
+/**
+ * Function will execute 
+ * @param  {} dbName
+ * @param  {} tableName
+ * @param  {} data=[]
+ * @param  {} where
+ */
+function updateTable (dbName,tableName, data, where){
+    let db = new sqlite3.Database(DB_PATH + dbName.toUpperCase() + DB_EXT);
+    let sql = `UPDATE ${tableName} SET `;
+    let i = 1;
+    let values = Object.values(data);
+    let keys = Object.keys(data);
+    keys.forEach(key => {
+        sql += `${key} = ?`;
+        if(i < keys.length) sql += ', ';
+        i++;
+    });
+    sql += ` WHERE ${where}`;
+
+    let newSql = `SELECT * FROM ${tableName}` 
+    //  WHERE ${where}`
+    return new Promise(function (resolve, reject){
+        db.serialize(()=>{
+            db.run(sql,values,function (err, rows){
+                //db.close()
+                console.log('entered 1')
+                if(err){
+                    reject(err)
+                }
+                resolve(
+                    fetchAll(newSql,dbName.toUpperCase())
+                )                
+                
+            })
+        })
+    })
+}
 
 /** Fetch all the records of sql statment
  * @param  {} sql
@@ -922,6 +960,7 @@ module.exports = {
     connect: connect,
     fetchById: fetchById,
     fetchAll: fetchAll,
+    updateTable : updateTable,
     save: save,
     executeTables: executeTables,
     executeGstr2bTables: executeGstr2bTables,

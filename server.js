@@ -21,7 +21,7 @@ var userAuthRouter = require('./server/routes/userAuthRouter')
 async.waterfall([
     (callback) => {
         server.use(bodyParser.json({ limit: '50mb' }));
-        server.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
+        server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
         server.use(cookieParser());
         server.use(morgan('combined', { stream: winston_logger.stream }));
         server.use('/auth',userAuthRouter);
@@ -34,19 +34,19 @@ async.waterfall([
     }
 ],(error,response) =>{
     var log = require('./server/utility/logger'), logger = log.logger;
-    if (error) {
+    if (error) {        
         logger.log("error", "Error while starting server. Please check error log %s", error.message)
     } else {
-        const port = 3012
+        const port = 3011
         process.on('uncaughtException', function (e) {
             logger.log("error", "UnCaught Exception :: ", e);
-        }
-        )
+        })
         http.createServer(server).listen(
             port,
             function () {
                 logger.log("info", "Started NodeJS server For GSTR2B Offline Utility , listening on port :: "+port+" , :: %s , %s", server.get('port'), new Date().getTime(), new Date().toString());
                 logger.level = constants.LOG_LEVEL;
-            });
+            }
+        );
     }
 })

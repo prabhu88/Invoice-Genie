@@ -13,8 +13,26 @@ const userLoginTable = `CREATE TABLE user_login (
     );
     insert into user_login values (1,'admin','admin@123','s.prabhu.mtech88@gmail.com');
 `
-console.log(DB_PATH + OFFLINE_TOOL_DB + DB_EXT)
-fetchAll('SELECT * FROM user_login ',OFFLINE_TOOL_DB).then((res,err)=>{
+const userProfileTable = `
+CREATE TABLE user_profile (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_name TEXT NOT NULL,
+    gstin TEXT(15) unique,
+    pan TEXT(15) unique,
+    address_line1 TEXT NOT NULL,
+    address_line2 TEXT ,
+    city TEXT ,
+    state TEXT ,
+    country TEXT ,
+    postal_code INTEGER ,
+    mobile_momber INTEGER ,
+    email TEXT NOT NULL,
+    terms_top TEXT,
+    terms_bottom TEXT,
+    logo_path TEXT
+);
+`
+fetchAll("select * FROM user_profile",OFFLINE_TOOL_DB).then((res,err)=>{
     console.log(res)
 })
 

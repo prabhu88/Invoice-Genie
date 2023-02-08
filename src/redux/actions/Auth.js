@@ -1,41 +1,32 @@
 import {LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT,SET_MESSAGE} from './AuthActionType'
 import {setMsg,clearMsg} from './Msg'
 import axios from 'axios';
-const baseURL = process.env.REACT_APP_PRODUCTION_AUTH_URL ? process.env.REACT_APP_DEVELOPEMENT_AUTH_URL : 'http://localhost:3011/auth/login';
+const baseURL = process.env.REACT_APP_PRODUCTION_AUTH_URL ? process.env.REACT_APP_DEVELOPEMENT_AUTH_URL : 'http://localhost:3011/auth/';
 
 export const login = (username, password) => (dispatch) => {    
-    axios.post(baseURL + "signin", {username :username,password : password,})
-    .then((response)=>{
-        if (response){
-            localStorage.setItem("user", JSON.stringify(response));
+    axios.post(baseURL+"login", {username :username,password : password,})
+    .then((response)=>{        
+        if (!response.data.error_state){
+            localStorage.setItem("user", JSON.stringify(response.data.data));
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: { user: response },
+                payload: { user: response.data.data },
             });
+            dispatch(clearMsg())
         }
-    })
-    if(username == "admin" && password == "admin@123"){        
-        dispatch({
-            type : LOGIN_SUCCESS,
-            payload : {
-                user : {
-                    username : username,
-                    password : password
-                }
-            }
-        })
-        dispatch(clearMsg())
-    }
-    else{
-        dispatch({
-            type: LOGOUT,
-        })
-        dispatch(setMsg('username or password incorrect'))
-    }
+        else{
+            dispatch({
+                type: LOGOUT,
+            })
+            dispatch(setMsg('username or password incorrect'))
+        }
+    })    
 }
 
 export const logout = () => (dispatch) =>{    
     dispatch({
         type: LOGOUT,
     })
+    dispatch(clearMsg())
+    
 }

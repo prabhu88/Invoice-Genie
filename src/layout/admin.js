@@ -10,11 +10,11 @@ const Admin = (props) =>{
     const {isLoggedIn} = useSelector(state => state.auth)
     const navigate = useHistory()
     const dispatch = useDispatch()
-    useEffect(()=>{
-      if(!isLoggedIn){
-          navigate.push('login')
-      }      
-  },[isLoggedIn])
+    useEffect(()=>{      
+        if(!isLoggedIn){          
+            navigate.push('/login')
+        }      
+    } ,[isLoggedIn])
     const [image,setImage] = useState(side_bak)
     const [color,setColor] = useState('purple')
     const [hasImage, setHasImage] = useState(true)

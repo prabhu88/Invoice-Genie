@@ -11,6 +11,8 @@ const Login = () => {
     const navigate = useHistory()
     useEffect(()=>{
         if(isLoggedIn){
+            console.log('isLoggedIn'+isLoggedIn)
+
             navigate.push('/admin/dashboard')
         }
         

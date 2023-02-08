@@ -2,51 +2,83 @@
 import React,{useState,useEffect} from "react";
 import {useDispatch,useSelector} from 'react-redux'
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap'
-//import {setProfile} from '../redux/actions/Profile'
+import {getProfile,setProfile} from '../redux/actions/Profile'
 import Swal from 'sweetalert2'
+import _ from 'lodash'
 import CmpnyLogo from '../assets/img/faces/face-1.jpg'
+
+
+const updatedValues = (oldObj, newObj) => {
+    let result = {};
+    for (let key in oldObj) {
+        if (newObj[key] !== oldObj[key]) {
+            result[key] = newObj[key]
+        }
+    }
+    return result;
+}
+
 const UserSettings = (props) => {            
-    const _default = useSelector(state => state.profile)    
+    const _default = useSelector(state => state.profile);    
+    const data = useSelector(state => state.profile.data);
+    const loading = useSelector(state => state.profile.loading);
+    const error = useSelector(state => state.profile.error);
+    let initialRender=true;
     const [logofile, setLogofile] = useState(CmpnyLogo);
     const dispatch = useDispatch()
     const [formData,setFormData] = useState({
         company_name : '',        address_line1 : '',        address_line2 : '',
-        city : '',        state : '',        country : '',        zipcode : '',
-        mobile : '',        email : '',        gstin : '',        pan : '',
+        city : '',        state : '',        country : '',        postal_code : '',
+        mobile_momber : '',        email : '',        gstin : '',        pan : '',
         terms : '', image : "../assets/img/faces/face-1.jpg"
     })
-    useEffect(()=>{        
-        if(_default){
-            setFormData(_default)
+    useEffect(()=>{  
+        if(loading){
+            dispatch(getProfile())                
         }
-    },[_default])
+        else{            
+            setFormData(data[0])
+        }     
+           
+    },[loading,data])
     
     const formSumit = (e) => {
         e.preventDefault();
-        //dispatch(setProfile(formData))      
-        Swal.fire({
-            title: 'Do you want to save the changes?',            
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            denyButtonText: `Don't save`,
-          }).then((result) => {            
-            if (result.isConfirmed) {
-                dispatch({
-                    type : 'SET_PROFILE',
-                    payload : formData
-                })
-                Swal.fire('Details Updated Successfully','','success')
-
-            } else if (result.isDenied) {
-              Swal.fire('Changes are not saved', '', 'info')
-            }
-        })
-        
-         
+        let updatedValue = updatedValues(data[0],formData)
+        if(Object.keys(updatedValue).length > 0 ){
+            Swal.fire({
+                title: 'Do you want to save the changes?',            
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+              }).then((result) => {            
+                if (result.isConfirmed) {
+                    dispatch(setProfile(updatedValue))
+                    Swal.fire('Details Updated Successfully','','success')
+    
+                } else if (result.isDenied) {                    
+                  Swal.fire('Changes are not saved', '', 'info')
+                }            
+            })
+        }
+        else{
+            Swal.fire('nothing to change', '', 'info')
+        }
     }
     const imgChange = (e) => {
         e.preventDefault()
         setLogofile(URL.createObjectURL(e.target.files[0]));
+    }
+    if(loading){
+        return(
+            <Container>
+                <Row className="vh-100 align-center">
+                    <Col className="text-center">
+                    Loading..
+                    </Col>
+                </Row>                
+            </Container>
+        )
     }
     return(
         <div>            
@@ -147,12 +179,12 @@ const UserSettings = (props) => {
                                         <Col className="pr-1" md="3">
                                             <label>Postal Code</label>
                                             <Form.Control
-                                                value={formData.zipcode}                                                
+                                                value={formData.postal_code}                                                
                                                 placeholder="Postal Code"
                                                 type="text"
                                                 onChange={(e)=>{
                                                     setFormData({...formData,
-                                                        zipcode :e.target.value
+                                                        postal_code :e.target.value
                                                     })
                                                 }}
                                             ></Form.Control>
@@ -161,14 +193,14 @@ const UserSettings = (props) => {
                                     <Row>
                                         <Col className="pr-1" md="6">
                                             <Form.Group>
-                                                <label>Mobile number</label>
+                                                <label>mobile_momber number</label>
                                                 <Form.Control
-                                                    value={formData.mobile}
-                                                    placeholder="Mobile Number"
+                                                    value={formData.mobile_momber}
+                                                    placeholder="mobile_momber Number"
                                                     type="number"
                                                     onChange={(e)=>{
                                                         setFormData({...formData,
-                                                            mobile :e.target.value
+                                                            mobile_momber :e.target.value
                                                         })
                                                     }}
                                                 ></Form.Control>
@@ -283,8 +315,7 @@ const UserSettings = (props) => {
                         </Card>
                         
                     </Col>
-                </Row>
-                <h1>{formData.pan}</h1> 
+                </Row>                
             </Container>          
         </div>
     )
