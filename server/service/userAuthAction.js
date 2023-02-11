@@ -1,10 +1,12 @@
+const path = require('path')
+const fs = require('fs-extra')
 const db = require('../db/common/dbUtil')
 var Promise = require('bluebird')
 const log = require('../utility/logger').logger
 const {OFFLINE_TOOL_DB,STATUS_CD_ZERO} = require('../utility/constants')
 function login(req,res){    
-    let username = req.body.username ? req.body.username :  'admin'
-    let password = req.body.password ? req.body.password : 'admin@123'
+    let username = req.body.username ? req.body.username :  ''
+    let password = req.body.password ? req.body.password : ''
     let query = "SELECT * FROM user_login where username = '"+username+"' and password = '"+password+"'";
     return new Promise(function(resolve,reject){
         log.log("info", "Entering userAuthAction.js :: login Function");
@@ -40,14 +42,6 @@ function createProfile(req,res){
     ] 
     let Where = ` user_id = '${req.body.email ? req.body.email :  req.query.email ? req.query.email : 2}' `;
     return new Promise(function(resolve,reject){        
-        
-        // return db.save(query,values,OFFLINE_TOOL_DB).then((rows,err)=>{
-        //     if(err){
-        //         reject({ error: err, statusCd: STATUS_CD_ZERO });
-        //     }
-        //     resolve({error_state : false,data : rows})
-        // })
-
         return db.updateTable(OFFLINE_TOOL_DB,'user_profile',values,Where).then((rows,err)=>{
             if(err){
                 reject({ error: err, statusCd: STATUS_CD_ZERO });
@@ -73,23 +67,54 @@ function getProfile(req,res){
     })
 }
 function setProfile(req,res){
-    let data = req.body.data
-    let condition = "user_id = 3"
+    let data = req.body    
+    let condition = "user_id = 3"    
     return new Promise(function(resolve,reject){
         return db.updateTable(OFFLINE_TOOL_DB,'user_profile',data,condition).then((rows,err)=>{
             if(err){
                 reject({ error: err, statusCd: STATUS_CD_ZERO });
-            }                       
-            
+            }
             resolve({error_state : false,data : rows})
-            
-            //resolve({ error_state : true,error: 'username or password incorrect', statusCd: STATUS_CD_ZERO });            
         })
+    })  
+    
+}
+function updateLogo(req,res){
+    return new Promise(function(resolve,reject){
+        let filename = req.body.filename
+        if (req.files){                
+            var u_files = req.files.logo
+            var re = /(?:\.([^.]+))?$/
+            var ext = re.exec(u_files.name)[1]
+            let file_path = path.join('public/assets/img/faces/',filename )
+            u_files.mv(file_path, (err) => {
+                if (err) {
+                    reject({ error: err, statusCd: STATUS_CD_ZERO });
+                }
+                else{
+                    //resolve({error_state : false,data : "updated Successfully"})
+                    let sql = "UPDATE user_profile SET logo_path = ? WHERE user_id = 3 "                    
+                    return db.update(sql,['assets/img/faces/'+u_files.name],OFFLINE_TOOL_DB).then((rows,err)=>{
+                        if(err){
+                            console.log('error')
+                            reject({ error: err, statusCd: STATUS_CD_ZERO });
+                        }            
+                        console.log('no error')              
+                        resolve({error_state : false,data : "updated Successfully"})                                  
+                    })
+                }
+            })        
+        }
+        else{
+            reject({ error: err, statusCd: STATUS_CD_ZERO });
+        }        
     })
+    
 }
 module.exports = {
     login : login,
     createProfile : createProfile,
     getProfile : getProfile,
-    setProfile : setProfile
+    setProfile : setProfile,
+    updateLogo : updateLogo
 }

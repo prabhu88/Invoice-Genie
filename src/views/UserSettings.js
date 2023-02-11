@@ -5,8 +5,9 @@ import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap'
 import {getProfile,setProfile} from '../redux/actions/Profile'
 import Swal from 'sweetalert2'
 import _ from 'lodash'
-import CmpnyLogo from '../assets/img/faces/face-1.jpg'
-
+import axios from 'axios'
+//import CmpnyLogo from '../assets/img/faces/face-1.jpg'
+const baseURL = process.env.REACT_APP_PRODUCTION_AUTH_URL ? process.env.REACT_APP_DEVELOPEMENT_AUTH_URL : 'http://localhost:3011/auth/';
 
 const updatedValues = (oldObj, newObj) => {
     let result = {};
@@ -24,9 +25,10 @@ const UserSettings = (props) => {
     const loading = useSelector(state => state.profile.loading);
     const error = useSelector(state => state.profile.error);
     let initialRender=true;
-    const [logofile, setLogofile] = useState(CmpnyLogo);
+    const [logofile, setLogofile] = useState('assets/img/faces/face-1.jpg');
+    
     const dispatch = useDispatch()
-    const [formData,setFormData] = useState({
+    const [profileData,setProfileData] = useState({
         company_name : '',        address_line1 : '',        address_line2 : '',
         city : '',        state : '',        country : '',        postal_code : '',
         mobile_momber : '',        email : '',        gstin : '',        pan : '',
@@ -37,14 +39,15 @@ const UserSettings = (props) => {
             dispatch(getProfile())                
         }
         else{            
-            setFormData(data[0])
+            setProfileData(data[0])
+            setLogofile(data[0].logo_path)
         }     
            
     },[loading,data])
     
     const formSumit = (e) => {
         e.preventDefault();
-        let updatedValue = updatedValues(data[0],formData)
+        let updatedValue = updatedValues(data[0],profileData)               
         if(Object.keys(updatedValue).length > 0 ){
             Swal.fire({
                 title: 'Do you want to save the changes?',            
@@ -67,7 +70,27 @@ const UserSettings = (props) => {
     }
     const imgChange = (e) => {
         e.preventDefault()
-        setLogofile(URL.createObjectURL(e.target.files[0]));
+        var allowedExtensions =/(\.jpg|\.jpeg)$/i;        
+        let file_name = e.target.files[0].name
+        if(!allowedExtensions.exec(file_name)){
+            Swal.fire('Please select jpg image')
+            return false;
+        }        
+        let fd = new FormData()
+        fd.append('logo',e.target.files[0])
+        fd.append('filename',file_name)
+        setLogofile(URL.createObjectURL(e.target.files[0]));                
+        axios.post(baseURL+"updateLogo",fd)
+        .then(res => {
+            console.log(res)
+            if (!res.data.error_state){
+                Swal.fire('company logo updated successfully')
+            }
+        })
+        .catch(err =>{
+            Swal.fire('',err,'info')            
+        }) 
+
     }
     if(loading){
         return(
@@ -96,11 +119,11 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>Company Name</label>
                                                 <Form.Control
-                                                value = {formData.company_name}                                                
+                                                value = {profileData.company_name}                                                
                                                 placeholder="Company"
                                                 type="text"
                                                 onChange={(e)=>{
-                                                    setFormData({...formData,
+                                                    setProfileData({...profileData,
                                                         company_name :e.target.value
                                                     })
                                                 }}
@@ -113,22 +136,22 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>Address</label>
                                                 <Form.Control
-                                                    value={formData.address_line1}
+                                                    value={profileData.address_line1}
                                                     placeholder="Address Line 1"
                                                     type="text"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             address_line1 :e.target.value
                                                         })
                                                     }}
                                                 ></Form.Control>
                                                 <Form.Control
-                                                    value={formData.address_line2}
+                                                    value={profileData.address_line2}
                                                     placeholder="Address Line 2"
                                                     className="mt-2"
                                                     type="text"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             address_line2 :e.target.value
                                                         })
                                                     }}
@@ -140,11 +163,11 @@ const UserSettings = (props) => {
                                         <Col className="pr-1" md="3">
                                             <label>City</label>
                                             <Form.Control
-                                                defaultValue={formData.city}                                                
+                                                defaultValue={profileData.city}                                                
                                                 placeholder="City"
                                                 type="text"
                                                 onChange={(e)=>{
-                                                    setFormData({...formData,
+                                                    setProfileData({...profileData,
                                                         city :e.target.value
                                                     })
                                                 }}
@@ -153,11 +176,11 @@ const UserSettings = (props) => {
                                         <Col className="pr-1" md="3">
                                             <label>State</label>
                                             <Form.Control
-                                                value={formData.state}                                                
+                                                value={profileData.state}                                                
                                                 placeholder="State address"
                                                 type="text"
                                                 onChange={(e)=>{
-                                                    setFormData({...formData,
+                                                    setProfileData({...profileData,
                                                         state :e.target.value
                                                     })
                                                 }}
@@ -166,11 +189,11 @@ const UserSettings = (props) => {
                                         <Col className="pr-1" md="3">
                                             <label>Country</label>
                                             <Form.Control
-                                                value={formData.country}                                                
+                                                value={profileData.country}                                                
                                                 placeholder="Country"
                                                 type="text"
                                                 onChange={(e)=>{
-                                                    setFormData({...formData,
+                                                    setProfileData({...profileData,
                                                         country :e.target.value
                                                     })
                                                 }}
@@ -179,11 +202,11 @@ const UserSettings = (props) => {
                                         <Col className="pr-1" md="3">
                                             <label>Postal Code</label>
                                             <Form.Control
-                                                value={formData.postal_code}                                                
+                                                value={profileData.postal_code}                                                
                                                 placeholder="Postal Code"
                                                 type="text"
                                                 onChange={(e)=>{
-                                                    setFormData({...formData,
+                                                    setProfileData({...profileData,
                                                         postal_code :e.target.value
                                                     })
                                                 }}
@@ -195,11 +218,11 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>mobile_momber number</label>
                                                 <Form.Control
-                                                    value={formData.mobile_momber}
+                                                    value={profileData.mobile_momber}
                                                     placeholder="mobile_momber Number"
                                                     type="number"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             mobile_momber :e.target.value
                                                         })
                                                     }}
@@ -210,11 +233,11 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>Email Address</label>
                                                 <Form.Control
-                                                    value={formData.email}
+                                                    value={profileData.email}
                                                     placeholder="Email Address"
                                                     type="text"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             email :e.target.value
                                                         })
                                                     }}
@@ -227,11 +250,11 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>GSTIN</label>
                                                 <Form.Control                                                    
-                                                    value = {formData.gstin}
+                                                    value = {profileData.gstin}
                                                     placeholder="GSTIN Number"
                                                     type="text"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             gstin :e.target.value.substring(0,15).toUpperCase(),
                                                             pan : e.target.value.substring(2,12).toUpperCase()
                                                         })
@@ -243,7 +266,7 @@ const UserSettings = (props) => {
                                             <Form.Group>
                                                 <label>PAN</label>
                                                 <Form.Control
-                                                    value={formData.pan}
+                                                    value={profileData.pan}
                                                     placeholder="PAN"
                                                     type="text"
                                                     disabled                                                    
@@ -257,12 +280,12 @@ const UserSettings = (props) => {
                                                 <label>Terms & conditions</label>
                                                 <Form.Control
                                                     cols="80"
-                                                    value={formData.terms}
+                                                    value={profileData.terms}
                                                     placeholder="Here can be your description"
                                                     rows="4"
                                                     as="textarea"
                                                     onChange={(e)=>{
-                                                        setFormData({...formData,
+                                                        setProfileData({...profileData,
                                                             terms :e.target.value                                                    
                                                         })
                                                     }}
@@ -286,9 +309,8 @@ const UserSettings = (props) => {
                     <Col md="4">
                         <Card className="card-user">
                             <div className="card-image">
-                                <img
-                                alt="..."
-                                src={require("../assets/img/photo-1431578500526-4d9613015464.jpeg")}
+                                <img                                                                
+                                    src={profileData.image}
                                 ></img>
                             </div>
                             <Card.Body>
@@ -296,7 +318,7 @@ const UserSettings = (props) => {
                                     
                                 </div>
                                 <div className="author">                                    
-                                    <input type="file" hidden id='selectImage' accept="image/*"  onChange={imgChange} />
+                                    <input type="file" hidden id='selectImage' accept="image/*" value=""  onChange={imgChange} />
                                     <a href="#pablo" onClick={(e) => {
                                             e.preventDefault();
                                             document.getElementById("selectImage").click()

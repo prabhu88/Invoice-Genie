@@ -7,10 +7,10 @@ var morgan = require('morgan')
 var bodyParser = require('body-parser')
 var server = express()
 var cors = require('cors')
-server.use(cors())
+
 const NodeCache = require('node-cache')
 var async = require('async')
-server.set('myCache', new NodeCache({ stdTTL: 200, checkperiod: 120 }))
+const fileUpload = require('express-fileupload')
 
 var constants = require('./server/utility/constants')
 var errorConstant = require('./server/utility/errorconstants')
@@ -18,6 +18,11 @@ const winston_logger = require('./server/utility/logger')
 
 var userAuthRouter = require('./server/routes/userAuthRouter')
 
+server.use(fileUpload({
+    createParentPath: true
+}))
+server.use(cors())
+server.set('myCache', new NodeCache({ stdTTL: 200, checkperiod: 120 }))
 async.waterfall([
     (callback) => {
         server.use(bodyParser.json({ limit: '50mb' }));

@@ -35,9 +35,18 @@ function setProfile(req,res){
     })
 }
 
+function updateLogo(req,res){
+    userAuthAction.updateLogo(req,res).then(function(data){
+        res.status(201).send(data);
+    })
+    .catch(function(err){
+        res.status(500).send(err);
+    })
+}
 module.exports = {
     login : loginService,
     createProfile : createProfile ,
     getProfile : getProfile,
-    setProfile : setProfile
+    setProfile : setProfile,
+    updateLogo : updateLogo
 }

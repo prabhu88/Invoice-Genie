@@ -1,7 +1,8 @@
 var express = require('express')
 var router = express.Router()
 const logger = require('../utility/logger').logger
-const {login,createProfile,getProfile,setProfile} = require('../service/userAuthService')
+const {login,createProfile,getProfile,setProfile,updateLogo} = require('../service/userAuthService')
+
 
 router.post('/login',function(req,res){
     logger.log("info", "Entering routes::: userAuthRouter :: /login : %s");
@@ -24,6 +25,11 @@ router.post('/getProfile',function(req,res){
 router.post('/updateProfile',function(req,res){
     logger.log("info", "Entering routes::: userAuthRouter :: /getProfile : %s");
     setProfile(req,res)
+    logger.log("info", "Exiting routes::: userAuthRouter :: /getProfile : %s");
+})
+router.post('/updateLogo',function(req,res){
+    logger.log("info", "Entering routes::: userAuthRouter :: /getProfile : %s");
+    updateLogo(req,res)
     logger.log("info", "Exiting routes::: userAuthRouter :: /getProfile : %s");
 })
 module.exports = router;
