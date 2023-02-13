@@ -17,7 +17,7 @@ var errorConstant = require('./server/utility/errorconstants')
 const winston_logger = require('./server/utility/logger')
 
 var userAuthRouter = require('./server/routes/userAuthRouter')
-
+var invoiceRouter = require('./server/routes/invoiceRouter')
 server.use(fileUpload({
     createParentPath: true
 }))
@@ -30,6 +30,7 @@ async.waterfall([
         server.use(cookieParser());
         server.use(morgan('combined', { stream: winston_logger.stream }));
         server.use('/auth',userAuthRouter);
+        server.use('/invoice',invoiceRouter);
         server.use('*', function (req, res) {
             res.status(404).send(
                 errorConstant.BAD_URL);

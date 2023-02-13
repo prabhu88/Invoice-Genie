@@ -1,6 +1,7 @@
 import Dashboard from '../views/Dashboard'
 import UserSettings from '../views/UserSettings'
 import AllInvoices from '../views/AllInvoices'
+import CreateInvoice from '../views/CreateInvoice'
 const AdminRoutes = [
     // {
     //     upgrade: true,
@@ -24,13 +25,13 @@ const AdminRoutes = [
         component: UserSettings,
         layout: "/admin"
       },
-      // {
-      //   path: "/table",
-      //   name: "Table List",
-      //   icon: "nc-icon nc-notes",
-      //   component: TableList,
-      //   layout: "/admin"
-      // },
+      {
+        path: "/create",
+        name: "Create Invoice",
+        icon: "nc-icon nc-notes",
+        component: CreateInvoice,
+        layout: "/admin"
+      },
       // {
       //   path: "/typography",
       //   name: "Typography",
