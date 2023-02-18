@@ -93,7 +93,7 @@ function updateLogo(req,res){
                 }
                 else{
                     //resolve({error_state : false,data : "updated Successfully"})
-                    let sql = "UPDATE user_profile SET logo_path = ? WHERE user_id = 3 "                    
+                    let sql = "UPDATE user_profile SET logo_path = ? WHERE user_id = 1 "                    
                     return db.update(sql,['assets/img/faces/'+u_files.name],OFFLINE_TOOL_DB).then((rows,err)=>{
                         if(err){
                             console.log('error')

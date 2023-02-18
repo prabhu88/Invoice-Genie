@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require("fs")
 const _ = require('lodash')
 const { OFFLINE_TOOL_DB, STATUS_CD_ZERO, STATUS_CD_ONE, DB_PATH, DB_EXT } = require('../utility/constants');
-const {fetchAll}  = require('../db/common/dbUtil')
+const {fetchAll,save}  = require('../db/common/dbUtil')
 
 const userLoginTable = `CREATE TABLE user_login (
         user_id INTEGER PRIMARY KEY,
@@ -32,7 +32,11 @@ CREATE TABLE user_profile (
     logo_path TEXT
 );
 `
-fetchAll("select * FROM user_profile",OFFLINE_TOOL_DB).then((res,err)=>{
+// save("INSERT INTO  user_profile values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[1,'Prabhu Soft Solution','33EYOPW8565T2Z4','EYOPW8565T','Appartment','Main Road',
+// 'Madurai','Tamilnadu','India','625014','9994040005','pss@pss.com','',''
+// ],OFFLINE_TOOL_DB)
+
+fetchAll('SELECT * FROM user_profile',OFFLINE_TOOL_DB).then((res,err)=>{
     console.log(res)
 })
 
@@ -47,6 +51,7 @@ fetchAll("select * FROM user_profile",OFFLINE_TOOL_DB).then((res,err)=>{
 //         if (err) console.log("secondResponse :" + err);
 //         else console.log("res " + res);
 //     })
+//     offlinedb.run(userProfileTable)
 // })
   
 // offlinedb.close((err) => {

@@ -29,5 +29,21 @@ CREATE TABLE user_profile (
     terms_bottom TEXT,
     logo_path TEXT
 );
+INSERT INTO  user_profile values (1,'Prabhu Soft Solution','33EYOPW8565T2Z4','EYOPW8565T','Appartment','Main Road',
+'Madurai','Tamilnadu','India','625014','9994040005','pss@pss.com','',''
+)
 -- 
 -- 
+CREATE TABLE invoice_products (
+  invno VARCHAR(255) NOT NULL,
+  slno VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  hsn INT NOT NULL,
+  quantity VARCHAR(255) NOT NULL,
+  rate VARCHAR(255) NOT NULL,
+  cgst VARCHAR(255) NOT NULL,
+  sgst VARCHAR(255) NOT NULL,
+  igst VARCHAR(255) NOT NULL,
+  total INT NOT NULL,
+  PRIMARY KEY (invno, slno)
+);

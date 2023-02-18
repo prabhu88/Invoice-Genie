@@ -2,6 +2,7 @@ import Dashboard from '../views/Dashboard'
 import UserSettings from '../views/UserSettings'
 import AllInvoices from '../views/AllInvoices'
 import CreateInvoice from '../views/CreateInvoice'
+
 const AdminRoutes = [
     // {
     //     upgrade: true,

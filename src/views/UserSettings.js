@@ -70,7 +70,7 @@ const UserSettings = (props) => {
     }
     const imgChange = (e) => {
         e.preventDefault()
-        var allowedExtensions =/(\.jpg|\.jpeg)$/i;        
+        var allowedExtensions =/(\.jpg|\.jpeg|\.png)$/i;        
         let file_name = e.target.files[0].name
         if(!allowedExtensions.exec(file_name)){
             Swal.fire('Please select jpg image')
