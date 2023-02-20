@@ -47,3 +47,18 @@ CREATE TABLE invoice_products (
   total INT NOT NULL,
   PRIMARY KEY (invno, slno)
 );
+-- 
+-- 
+CREATE TABLE ItemMaster (
+    ItemID INT PRIMARY KEY,
+    ItemName VARCHAR(50) NOT NULL,
+    ItemDesc VARCHAR(255) NOT NULL,
+    HSNCode VARCHAR(8) NOT NULL,
+    CGST FLOAT NOT NULL,
+    SGST FLOAT NOT NULL,
+    IGST FLOAT NOT NULL,
+    Price FLOAT NOT NULL
+);
+-- 
+-- 
+
