@@ -2,7 +2,6 @@ import React from 'react';
 import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import QRCode from 'react-qr-code';
 
-// Create styles
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',

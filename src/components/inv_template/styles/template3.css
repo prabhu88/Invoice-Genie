@@ -3,7 +3,6 @@
     --white: #ffffff;
     --background-color: #f2f3f5;
     --placeholder-color: #aaa;
-
     --color-dark: #222;
     --color-dark-2: #666;
     --color-gray: #e3e3e3;
@@ -23,8 +22,7 @@
     margin-top: 5px;
     display: flex;
     justify-content: center; /* center child horizontally */
-    align-items: center;    
-    
+    align-items: center;        
 }
 .inv_title{    
     background-color: var(--white);
@@ -82,9 +80,11 @@ img {
 .inv_qrcode{
     margin-left: auto;
     margin-right: 10px;
-    min-width: 240px;
-    min-height: 240px;
-    border : 1px solid var(--blue)
+    max-width: 240px;
+    max-height: 240px;
+    border : 1px solid var(--blue);
+    padding: 3px;
+    
 }
 .prod_section{
     display: flex;
